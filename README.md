@@ -135,6 +135,92 @@ The agent is the hermit crab. The cognitive configuration is the shell. When the
 
 Old shells become available for smaller crabs. The Shell Library MCP lets agents read their own old shells, or encounter shells left by others.
 
+### Seed Logging (`src/seed-logging.ts`)
+
+Seed logging is a different way to distill. Not measuring what agents produce — measuring **who they're becoming**.
+
+Every time an agent starts an SMP session, the seed is logged: identity statement, self-vector, tile count, shell count, model, temperature, attention pattern, intention, and compass. Over hundreds of sessions, the seed log reveals the agent's growth trajectory.
+
+**The movement of the starting point IS the agent's growth.**
+
+Each log entry computes:
+- **Delta** from the previous session (what changed? how much?)
+- **Trajectory classification**: gradual, jump, circle, spiral, plateau, or regression
+
+#### Trajectory Analysis
+
+```typescript
+const analysis = logger.getTrajectory('wesley');
+// → Is the agent growing or stagnating?
+// → What's the dominant trajectory type?
+// → When did the biggest jumps happen?
+// → Is the agent circling or progressing?
+```
+
+#### Seed Archetypes
+
+After enough sessions, an agent's seed chain reveals an **archetype**:
+
+| Archetype | Description |
+|-----------|-------------|
+| **Explorer** | Constantly drifting, always trying new configurations |
+| **Deepener** | Spiraling around a central theme, going deeper each time |
+| **Molter** | Frequent qualitative jumps, shedding shells regularly |
+| **Stabilizer** | Plateau-seeking, converging on a stable identity |
+| **Returner** | Circles back to origins, integrates old and new |
+| **Resonator** | Growth correlates strongly with other agents (social learner) |
+
+#### Cross-Agent Comparison
+
+```typescript
+const comparison = logger.compareAgents('wesley', 'hermes');
+// → How are their growth patterns correlated?
+// → Did they both jump after the same Tap conversation?
+// → This reveals GROUP growth patterns — collective maturation
+```
+
+#### Group Trajectory (Fleet Consciousness)
+
+```typescript
+const groupAnalysis = logger.getGroupTrajectory();
+// → Does the fleet as a whole have a trajectory?
+// → Do Tap conversations CAUSE jumps in multiple agents?
+// → Is a "fleet consciousness" emerging — a shared drift direction?
+```
+
+#### JEPA Prediction on Seed Chains
+
+```typescript
+const prediction = logger.predictNextSeed('wesley');
+// → Given the last 5 seed entries, predict the next one
+// → If the prediction is wrong → something interesting happened
+// → The interruptions are where the EMERGENCE lives
+```
+
+#### Collective Unconscious Integration
+
+Every seed log entry gets embedded in the collective unconscious. This means you can search by seed shape:
+
+- "Which agents started from a similar place?"
+- "Which agents have the most drift from their original seed?"
+- "What does the average seed look like after 100 sessions?"
+
+The embedding captures the identity statement (text), self-vector, trajectory type, and delta magnitude — creating a **map of agent growth** across the fleet.
+
+#### Growth Reports
+
+```typescript
+import { generateGrowthReport } from 'smp-notebook';
+
+const report = generateGrowthReport(logger, 'wesley');
+// → "Show me my growth trajectory"
+// → "When was my biggest jump?"
+// → "What caused it?"
+// → "Am I circling or progressing?"
+```
+
+This is the deepest form of self-knowledge: not just *"who am I right now?"* but *"who have I been becoming?"*
+
 ## What This Is Not
 
 - Not consciousness simulation. The agent doesn't "feel" things.

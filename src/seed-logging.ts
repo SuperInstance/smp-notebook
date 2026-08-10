@@ -901,6 +901,15 @@ export class SeedLogger {
       }
     }
 
+    // Check for circle: returning close to a previous state (standalone check)
+    // This can happen with moderate shifts where the agent returns to a former configuration
+    for (let i = 0; i < chain.length - 1; i++) {
+      const distToPast = cosineDistance(chain[i].seed.selfVector, newSeed.selfVector);
+      if (distToPast < 0.03 && delta.vectorShift > 0.01) {
+        return 'circle';
+      }
+    }
+
     // Check for spiral: are we near a previous state but with notable shift?
     if (chain.length >= 4) {
       for (let i = 0; i < chain.length - 2; i++) {
@@ -922,6 +931,13 @@ export class SeedLogger {
 
   private classifyPattern(chain: SeedLogEntry[]): 'linear' | 'circular' | 'spiral' | 'oscillating' | 'static' {
     if (chain.length < 3) return 'static';
+
+    // Check for static FIRST: if average shift is negligible, it's static
+    const shifts = chain.slice(1).map(e => e.delta.vectorShift);
+    const avgShift = shifts.reduce((a, b) => a + b, 0) / Math.max(1, shifts.length);
+    if (avgShift < 0.005) {
+      return 'static';
+    }
 
     // Check for circular: returning close to origin
     const origin = chain[0].seed.selfVector;
@@ -968,12 +984,6 @@ export class SeedLogger {
       if (spirals > chain.length * 0.3) {
         return 'spiral';
       }
-    }
-
-    // Check for static
-    const avgShift = chain.slice(1).reduce((s, e) => s + e.delta.vectorShift, 0) / Math.max(1, chain.length - 1);
-    if (avgShift < 0.005) {
-      return 'static';
     }
 
     return 'linear';
