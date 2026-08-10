@@ -9,11 +9,18 @@
     "test": "vitest run",
     "test:watch": "vitest"
   },
-  "keywords": ["smp", "self-awareness", "agent", "notebook", "molting", "seed-model-prompt"],
+  "keywords": [
+    "smp",
+    "self-awareness",
+    "agent",
+    "notebook",
+    "molting",
+    "seed-model-prompt"
+  ],
   "author": "Casey DiGennaro",
   "license": "MIT",
   "devDependencies": {
-    "typescript": "^5.5.0",
-    "vitest": "^2.0.0"
+    "typescript": "^5.9.3",
+    "vitest": "^2.1.9"
   }
 }
